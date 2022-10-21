@@ -1,9 +1,8 @@
 defmodule MapTest do
   @moduledoc false
   use ExUnit.Case
-  doctest FlatMapper.Map
 
-  alias FlatMapper.Map
+  import FlatMapper
 
   describe "flatten/2" do
     test "return the same map when given a non nested map" do
@@ -12,7 +11,7 @@ defmodule MapTest do
         "b" => "bar"
       }
 
-      result = Map.flatten(input, delimeter: ".")
+      result = flatten(input, delimeter: ".")
 
       assert input == result
     end
@@ -30,7 +29,7 @@ defmodule MapTest do
         "b.bar" => "baz"
       }
 
-      result = Map.flatten(input, delimeter: ".")
+      result = flatten(input, delimeter: ".")
 
       assert expected == result
     end
@@ -48,7 +47,7 @@ defmodule MapTest do
         "b_bar" => "baz"
       }
 
-      result = Map.flatten(input, delimeter: "_")
+      result = flatten(input, delimeter: "_")
 
       assert expected == result
     end
@@ -72,7 +71,7 @@ defmodule MapTest do
         "c.c1.qux" => "corge"
       }
 
-      result = Map.flatten(input, delimeter: ".")
+      result = flatten(input, delimeter: ".")
 
       assert expected == result
     end
@@ -96,7 +95,7 @@ defmodule MapTest do
         "c.c1.qux" => "corge"
       }
 
-      result = Map.flatten(input, delimeter: ".", key: :as_string)
+      result = flatten(input, delimeter: ".", key: :as_string)
 
       assert expected == result
     end
@@ -112,7 +111,7 @@ defmodule MapTest do
         b: "bar"
       }
 
-      result = Map.flatten(input, delimeter: ".", key: :keep)
+      result = flatten(input, delimeter: ".", key: :keep)
 
       assert expected == result
     end
@@ -136,7 +135,7 @@ defmodule MapTest do
         c_c1_qux: "corge"
       }
 
-      result = Map.flatten(input, delimeter: "_", key: :as_atom)
+      result = flatten(input, delimeter: "_", key: :as_atom)
 
       assert expected == result
     end
@@ -160,7 +159,7 @@ defmodule MapTest do
         c_c1_qux: "corge"
       }
 
-      result = Map.flatten(input, delimeter: ".", key: :as_atom)
+      result = flatten(input, delimeter: ".", key: :as_atom)
 
       assert expected == result
     end
@@ -184,7 +183,7 @@ defmodule MapTest do
         c_c1_qux: "corge"
       }
 
-      result = Map.flatten(input, delimeter: ".")
+      result = flatten(input, delimeter: ".")
 
       assert expected == result
     end

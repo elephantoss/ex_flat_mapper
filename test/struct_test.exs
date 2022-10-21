@@ -1,9 +1,8 @@
 defmodule StructTest do
   @moduledoc false
   use ExUnit.Case
-  doctest FlatMapper.Struct
 
-  alias FlatMapper.Struct
+  import FlatMapper
   alias StructTest.Flat, as: FS
   alias StructTest.OneLevel, as: OL
   alias StructTest.TwoLevels, as: TL
@@ -20,7 +19,7 @@ defmodule StructTest do
         b: "bar"
       }
 
-      result = Struct.flatten(input)
+      result = flatten(input)
 
       assert expected == result
     end
@@ -40,7 +39,7 @@ defmodule StructTest do
         b_b: "baz"
       }
 
-      result = Struct.flatten(input, delimeter: "_")
+      result = flatten(input, delimeter: "_")
 
       assert expected == result
     end
@@ -64,7 +63,7 @@ defmodule StructTest do
         b_b_b: "qux"
       }
 
-      result = Struct.flatten(input, delimeter: "_")
+      result = flatten(input, delimeter: "_")
 
       assert expected == result
     end
@@ -88,7 +87,7 @@ defmodule StructTest do
         "b.b.b" => "qux"
       }
 
-      result = Struct.flatten(input, delimeter: ".", key: :as_string)
+      result = flatten(input, delimeter: ".", key: :as_string)
 
       assert expected == result
     end
@@ -108,7 +107,7 @@ defmodule StructTest do
         b_b: "baz"
       }
 
-      result = Struct.flatten(input, delimeter: ".", key: :as_atom)
+      result = flatten(input, delimeter: ".", key: :as_atom)
 
       assert expected == result
     end
