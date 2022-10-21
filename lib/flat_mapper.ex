@@ -7,7 +7,7 @@ defmodule FlatMapper do
   flattened.
   """
 
-  alias FlatMapper.Map
+  alias Helpers.Flatter
 
   @doc """
   Flattens the given value using the provided options.
@@ -15,6 +15,6 @@ defmodule FlatMapper do
   For more details, please check the documentation for the specific type.
   """
   def flatten(value, opts \\ [])
-  def flatten(value, []) when is_map(value), do: Map.flatten(value)
-  def flatten(value, opts) when is_map(value), do: Map.flatten(value, opts)
+  def flatten(value, []), do: Flatter.flatten(value)
+  def flatten(value, opts), do: Flatter.flatten(value, opts)
 end

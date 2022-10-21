@@ -3,8 +3,7 @@ defmodule FlatMapper.Map do
   Implement flatten for Elixir maps.
   """
 
-  @default_key_format :keep
-  @default_delimeter "."
+  alias Helpers.Flatter
 
   @doc """
   Flattens nested maps and uses the options provided to create the keys for the nested maps.
@@ -45,51 +44,7 @@ defmodule FlatMapper.Map do
       %{"a" => "foo", "b.bar" => "baz"}
 
   """
-  def flatten(m, opts \\ [delimeter: @default_delimeter, key: @default_key_format])
-
-  def flatten(m, opts) do
-    {delimeter, key_format} = extract_options(opts)
-
-    flat_map(m, delimeter, key_format)
-  end
-
-  defp flat_map(m, delimeter, key_format) when is_map(m) do
-    for {k, v} <- m,
-        sk = make_key(k, key_format),
-        fv <- flat_map(v, delimeter, key_format),
-        into: %{} do
-      case fv do
-        {key, val} ->
-          {make_key(sk, delimeter, key, key_format), val}
-
-        val ->
-          {sk, val}
-      end
-    end
-  end
-
-  defp flat_map(v, _delimeter, _key), do: [v]
-
-  defp make_key(k, :keep), do: k
-  defp make_key(k, :as_string), do: to_string(k)
-  defp make_key(k, :as_atom) when not is_atom(k), do: String.to_atom(k)
-  defp make_key(k, :as_atom), do: k
-  defp make_key(prefix, delimeter, suffix, :as_string), do: prefix <> delimeter <> suffix
-
-  defp make_key(prefix, delimeter, suffix, format) do
-    {d, f} =
-      if is_atom(prefix) || format == :as_atom do
-        {"_", :as_atom}
-      else
-        {delimeter, :as_string}
-      end
-
-    [prefix, suffix]
-    |> Enum.map_join(d, &to_string/1)
-    |> make_key(f)
-  end
-
-  defp extract_options(delimeter: delimeter), do: {delimeter, @default_key_format}
-  defp extract_options(key: key), do: {@default_delimeter, key}
-  defp extract_options(delimeter: delimeter, key: key), do: {delimeter, key}
+  def flatten(value, opts \\ [])
+  def flatten(value, []), do: Flatter.flatten(value)
+  def flatten(value, opts), do: Flatter.flatten(value, opts)
 end
