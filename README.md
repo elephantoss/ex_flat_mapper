@@ -1,11 +1,15 @@
 # FlatMapper
 
-**TODO: Add description**
+[![Build Status](https://github.com/elephantoss/ex_flat_mapper/actions/workflows/build_test.yaml/badge.svg)](https://github.com/elephantoss/ex_flat_mapper/actions)
+[![Coverage Status](https://coveralls.io/repos/github/elephantoss/ex_flat_mapper/badge.svg)](https://coveralls.io/github/elephantoss/ex_flat_mapper)
+![Hex.pm](https://img.shields.io/hexpm/v/type_checker)
+![Hex.pm](https://img.shields.io/hexpm/dt/type_checker?color=green)
+![GitHub](https://img.shields.io/github/license/elephantoss/ex_flat_mapper?color=blue)
+![GitHub last commit](https://img.shields.io/github/last-commit/elephantoss/ex_flat_mapper?color=yellowgreen)
+
+An Elixir library to provide a convenient way to flat nested maps and structs.
 
 ## Installation
-
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `flat_mapper` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
@@ -14,7 +18,3 @@ def deps do
   ]
 end
 ```
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/flat_mapper>.
