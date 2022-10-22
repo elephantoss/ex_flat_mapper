@@ -8,7 +8,7 @@ defmodule FlatMapper.MixProject do
   def project do
     [
       app: :flat_mapper,
-      version: "0.1.0",
+      version: "0.1.1",
       elixir: "~> 1.14",
       elixirc_paths: elixirc_paths(Mix.env()),
       build_embedded: Mix.env() == :prod,
@@ -46,7 +46,8 @@ defmodule FlatMapper.MixProject do
       {:excoveralls, "~> 0.14.6", only: [:dev, :test], runtime: false},
       {:ex_doc, "~> 0.28.5", only: :dev, runtime: false},
       {:inch_ex, "~> 2.0", only: [:dev, :test], runtime: false},
-      {:dialyxir, "~> 1.2", only: [:dev, :test], runtime: false}
+      {:dialyxir, "~> 1.2", only: [:dev, :test], runtime: false},
+      {:timex, "~> 3.7"}
     ]
   end
 

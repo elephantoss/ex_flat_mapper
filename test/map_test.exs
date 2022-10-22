@@ -188,4 +188,76 @@ defmodule MapTest do
       assert expected == result
     end
   end
+
+  describe "flatten/2 should handle non string fields properly" do
+    test "integer field" do
+      input = %{
+        "a" => "foo",
+        "b" => 1
+      }
+
+      result = flatten(input, delimeter: ".")
+
+      assert input == result
+    end
+
+    test "float field" do
+      input = %{
+        "a" => "foo",
+        "b" => 1.5
+      }
+
+      result = flatten(input, delimeter: ".")
+
+      assert input == result
+    end
+
+    test "N sigil" do
+      input = %{
+        "a" => "foo",
+        "b" => ~N[2022-10-22 16:28:07]
+      }
+
+      expected = %{
+        "a" => "foo",
+        "b" => "2022-10-22T16:28:07Z"
+      }
+
+      result = flatten(input, delimeter: ".")
+
+      assert expected == result
+    end
+
+    test "U sigil" do
+      input = %{
+        "a" => "foo",
+        "b" => ~U[2022-10-22 03:13:13Z]
+      }
+
+      expected = %{
+        "a" => "foo",
+        "b" => "2022-10-22T03:13:13Z"
+      }
+
+      result = flatten(input, delimeter: ".")
+
+      assert expected == result
+    end
+
+    test "D sigil" do
+      input = %{
+        "a" => "foo",
+        "b" => ~D[2022-10-22]
+      }
+
+      expected = %{
+        "a" => "foo",
+        "b" => "2022-10-22T00:00:00Z"
+      }
+
+      result = flatten(input, delimeter: ".")
+
+      assert expected == result
+    end
+  end
 end
