@@ -1,4 +1,5 @@
 defmodule Helpers.Flatter do
+  @moduledoc false
   import Helpers.Keys
 
   @default_key_format :keep
@@ -8,16 +9,16 @@ defmodule Helpers.Flatter do
 
   def flatten(m, opts) do
     {delimeter, key_format} = extract_options(opts)
-
     flat_map(m, delimeter, key_format)
   end
 
-  @moduledoc false
   def flat_map(m, delimeter, key_format) when is_struct(m) do
     m
     |> Map.from_struct()
     |> flat_map(delimeter, key_format)
   end
+
+  def flat_map(%{calendar: Calendar.ISO} = m, _, _), do: [Timex.format!(m, "{RFC3339z}")]
 
   def flat_map(m, delimeter, key_format) when is_map(m) do
     for {k, v} <- m,

@@ -26,6 +26,9 @@ defmodule FlatMapper do
 
   This override mechanism is to prevent creating maps with two types of keys.
 
+  ***Important note:***
+  Calendar.ISO or ~N values are formatted as RFC3339z strings
+
   ## Examples
 
       iex> input = %{
