@@ -2,8 +2,8 @@
 
 [![Build Status](https://github.com/elephantoss/ex_flat_mapper/actions/workflows/build_test.yaml/badge.svg)](https://github.com/elephantoss/ex_flat_mapper/actions)
 [![Coverage Status](https://coveralls.io/repos/github/elephantoss/ex_flat_mapper/badge.svg)](https://coveralls.io/github/elephantoss/ex_flat_mapper)
-![Hex.pm](https://img.shields.io/hexpm/v/type_checker)
-![Hex.pm](https://img.shields.io/hexpm/dt/type_checker?color=green)
+![Hex.pm](https://img.shields.io/hexpm/v/flat_mapper)
+![Hex.pm](https://img.shields.io/hexpm/dt/flat_mapper?color=green)
 ![GitHub](https://img.shields.io/github/license/elephantoss/ex_flat_mapper?color=blue)
 ![GitHub last commit](https://img.shields.io/github/last-commit/elephantoss/ex_flat_mapper?color=yellowgreen)
 
