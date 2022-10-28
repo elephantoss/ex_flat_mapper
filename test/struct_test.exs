@@ -112,4 +112,27 @@ defmodule StructTest do
       assert expected == result
     end
   end
+
+  describe "remove keys included in the exclusion list" do
+    test "remove atom keys" do
+      input = %TL{
+        a: "foo",
+        b: %OL{
+          a: "bar",
+          b: %FS{
+            a: "baz",
+            b: "qux"
+          }
+        }
+      }
+
+      expected = %{
+        b_b_b: "qux"
+      }
+
+      result = flatten(input, delimeter: "_", exclude: [:a])
+
+      assert expected == result
+    end
+  end
 end

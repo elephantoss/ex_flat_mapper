@@ -19,6 +19,8 @@ defmodule FlatMapper do
     - `:as_string` -> keys of the resulting map will be strings
     - `:as_atom` -> keys of the resulting map will be atoms
 
+  exclude -> don't add keys from the exclusion list in the flattened map.
+
   ***Important note:***
 
   When using `key: :as_atom`, flat map will override the delimeter to `_`, that's because
@@ -53,6 +55,13 @@ defmodule FlatMapper do
       ...>  }
       iex> Helpers.Flatter.flatten(input)
       %{a: "foo", b: "bar"}
+
+      iex> input = %{
+      ...>    "a" => "foo",
+      ...>    "b" => "bar"
+      ...>  }
+      iex> Helpers.Flatter.flatten(input, exclude: ["a"])
+      %{"b" => "bar"}
   """
   def flatten(value, opts \\ [])
   def flatten(value, []), do: Flatter.flatten(value)

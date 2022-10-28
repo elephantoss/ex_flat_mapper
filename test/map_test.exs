@@ -189,6 +189,48 @@ defmodule MapTest do
     end
   end
 
+  describe "remove keys included in the exclusion list" do
+    test "remove string keys" do
+      input = %{
+        "a" => "foo",
+        "l1" => "should be removed",
+        "b" => %{
+          "bar" => "baz",
+          "l2" => "should be removed"
+        }
+      }
+
+      expected = %{
+        "a" => "foo",
+        "b.bar" => "baz"
+      }
+
+      result = flatten(input, delimeter: ".", exclude: ["l1", "l2"])
+
+      assert expected == result
+    end
+
+    test "remove atom keys" do
+      input = %{
+        a: "foo",
+        l1: "should be removed",
+        b: %{
+          bar: "baz",
+          l2: "should be removed"
+        }
+      }
+
+      expected = %{
+        a: "foo",
+        b_bar: "baz"
+      }
+
+      result = flatten(input, delimeter: ".", exclude: [:l1, :l2])
+
+      assert expected == result
+    end
+  end
+
   describe "flatten/2 should handle non string fields properly" do
     test "integer field" do
       input = %{

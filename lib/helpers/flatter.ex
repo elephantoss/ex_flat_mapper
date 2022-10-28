@@ -8,22 +8,23 @@ defmodule Helpers.Flatter do
   def flatten(m, opts \\ [delimeter: @default_delimeter, key: @default_key_format])
 
   def flatten(m, opts) do
-    {delimeter, key_format} = extract_options(opts)
-    flat_map(m, delimeter, key_format)
+    {delimeter, key_format, exclude} = extract_options(opts)
+    flat_map(m, delimeter, key_format, exclude)
   end
 
-  def flat_map(m, delimeter, key_format) when is_struct(m) do
+  def flat_map(m, delimeter, key_format, exclude) when is_struct(m) do
     m
     |> Map.from_struct()
-    |> flat_map(delimeter, key_format)
+    |> flat_map(delimeter, key_format, exclude)
   end
 
-  def flat_map(%{calendar: Calendar.ISO} = m, _, _), do: [Timex.format!(m, "{RFC3339z}")]
+  def flat_map(%{calendar: Calendar.ISO} = m, _, _, _), do: [Timex.format!(m, "{RFC3339z}")]
 
-  def flat_map(m, delimeter, key_format) when is_map(m) do
+  def flat_map(m, delimeter, key_format, exclude) when is_map(m) do
     for {k, v} <- m,
+        Enum.any?(exclude, &(&1 == k)) == false,
         sk = make_key(k, key_format),
-        fv <- flat_map(v, delimeter, key_format),
+        fv <- flat_map(v, delimeter, key_format, exclude),
         into: %{} do
       case fv do
         {key, val} ->
@@ -35,9 +36,13 @@ defmodule Helpers.Flatter do
     end
   end
 
-  def flat_map(v, _delimeter, _key), do: [v]
+  def flat_map(v, _delimeter, _key, _exclude), do: [v]
 
-  defp extract_options(delimeter: delimeter), do: {delimeter, @default_key_format}
-  defp extract_options(key: key), do: {@default_delimeter, key}
-  defp extract_options(delimeter: delimeter, key: key), do: {delimeter, key}
+  defp extract_options(opts) do
+    delimeter = Keyword.get(opts, :delimeter, @default_delimeter)
+    key_format = Keyword.get(opts, :key, @default_key_format)
+    exclude = Keyword.get(opts, :exclude, [])
+
+    {delimeter, key_format, exclude}
+  end
 end
