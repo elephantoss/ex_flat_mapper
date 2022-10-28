@@ -5,6 +5,19 @@ See [Conventional Commits](Https://conventionalcommits.org) for commit guideline
 
 <!-- changelog -->
 
+## [v0.2.0](https://github.com/elephantoss/ex_flat_mapper/compare/v0.1.1...v0.2.0) (2022-10-28)
+
+
+
+
+### Documentation 📝:
+
+* fix readme badges references
+
+### Exciting New Features 🎉:
+
+* exclusion list option
+
 ## [v0.1.1](https://github.com/elephantoss/ex_flat_mapper/compare/v0.1.1...v0.1.1) (2022-10-21)
 
 
