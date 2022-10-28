@@ -4,11 +4,13 @@ defmodule FlatMapper.MixProject do
   use Mix.Project
 
   @source_url "https://github.com/elephantoss/ex_flat_mapper"
+  @version "0.1.1"
 
   def project do
     [
       app: :flat_mapper,
-      version: "0.1.1",
+      version: @version,
+      config_path: "./config/config.exs",
       elixir: "~> 1.14",
       elixirc_paths: elixirc_paths(Mix.env()),
       build_embedded: Mix.env() == :prod,
@@ -47,6 +49,7 @@ defmodule FlatMapper.MixProject do
       {:ex_doc, "~> 0.28.5", only: :dev, runtime: false},
       {:inch_ex, "~> 2.0", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.2", only: [:dev, :test], runtime: false},
+      {:git_ops, "~> 2.5.0", only: [:dev, :test]},
       {:timex, "~> 3.7"}
     ]
   end
@@ -55,7 +58,12 @@ defmodule FlatMapper.MixProject do
     [
       main: "readme",
       assets: "assets",
-      extras: ["README.md", "CHANGELOG.md": [title: "Changelog"]]
+      source_url: @source_url,
+      source_ref: "v#{@version}",
+      extras: [
+        "README.md",
+        "CHANGELOG.md": [title: "Changelog"]
+      ]
     ]
   end
 
